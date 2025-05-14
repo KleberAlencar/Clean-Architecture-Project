@@ -8,15 +8,19 @@ public class Validator : AbstractValidator<Command>
 {
     public Validator()
     {
-        RuleFor(x => x.Name)
+        RuleFor(x => x.FirstName)
+            .NotNull()
+            .WithMessage(ErrorMessage.Name.InvalidNullOrEmpty);
+        
+        RuleFor(x => x.LastName)
             .NotNull()
             .WithMessage(ErrorMessage.Name.InvalidNullOrEmpty);        
         
-        RuleFor(x => x.Name)
+        RuleFor(x => $"{x.FirstName} {x.LastName}")
             .MinimumLength(Name.MinLength)
             .WithMessage(ErrorMessage.Name.InvalidMinLength);
         
-        RuleFor(x => x.Name)
+        RuleFor(x => $"{x.FirstName} {x.LastName}")
             .MinimumLength(Name.MaxLength)
             .WithMessage(ErrorMessage.Name.InvalidMaxLength);        
 

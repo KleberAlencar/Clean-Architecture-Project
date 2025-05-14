@@ -2,4 +2,4 @@
 
 namespace CleanArc.Application.Accounts.UseCases.Create;
 
-public sealed record Command(string Name, string Email) : ICommand<Response>;
+public sealed record Command(string FirstName, string LastName, string Email) : ICommand<Response>;

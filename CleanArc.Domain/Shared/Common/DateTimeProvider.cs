@@ -1,6 +1,6 @@
 ﻿using CleanArc.Domain.Shared.Abstractions;
 
-namespace CleanArc.Domain.Shared;
+namespace CleanArc.Domain.Shared.Common;
 
 public class DateTimeProvider : IDateTimeProvider
 {

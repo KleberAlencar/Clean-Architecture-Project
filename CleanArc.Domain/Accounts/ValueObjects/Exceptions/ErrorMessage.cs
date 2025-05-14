@@ -20,6 +20,8 @@ public static class ErrorMessage
     
     public class EmailErrorMessages
     {
+        public string EmailExists => "Email already exists.";       
+        
         public string InvalidNullOrEmpty => "Email must not be empty.";
         
         public string InvalidEmail => "Email is not valid.";

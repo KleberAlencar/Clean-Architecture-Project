@@ -1,22 +1,31 @@
-﻿using CleanArc.Domain.Shared.Results;
+﻿using CleanArc.Domain.Shared.Common;
+using CleanArc.Domain.Shared.Results;
+using CleanArc.Domain.Accounts.Entities;
+using CleanArc.Domain.Accounts.ValueObjects;
+using CleanArc.Domain.Accounts.ValueObjects.Exceptions;
 using CleanArc.Application.Shared.UseCases.Abstractions;
+using CleanArc.Application.Accounts.Repositories.Abstractions;
 
 namespace CleanArc.Application.Accounts.UseCases.Create;
 
-public sealed class Handler() : ICommandHandler<Command, Response>
+public sealed class Handler(
+    IAccountRepository accountRepository) : ICommandHandler<Command, Response>
 {
-    public Task<Result<Response>> Handle(Command request, CancellationToken cancellationToken)
+    
+    public async Task<Result<Response>> Handle(Command request, CancellationToken cancellationToken)
     {
-        // Verifica se o e-mail ja esta cadastrado
+        var emailExists = await accountRepository.VerifyEmailExistsAsync(request.Email);
+        if (emailExists) return Result.Failure<Response>(new Error("400", ErrorMessage.Email.EmailExists));
         
-        // Gera os VOs
+        var name = Name.Create(request.FirstName, request.LastName);
+        var email = Email.Create(request.Email);
         
-        // Gera a entidade
+        var student = Student.Create(name, email, new DateTimeProvider());
         
         // Persiste os dados
         
         // Retorna a resposta
-        
-        throw new NotImplementedException();
+        return Result.Success<Response>(new Response(Guid.NewGuid(), request.FirstName + " " + request.LastName, request.Email));
     }
+    
 }
