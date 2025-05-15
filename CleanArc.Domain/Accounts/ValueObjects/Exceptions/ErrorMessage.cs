@@ -11,6 +11,8 @@ public static class ErrorMessage
     
     public class NameErrorMessages
     {
+        public string NameExists => "Name already exists.";
+        
         public string InvalidNullOrEmpty { get; set; } = "Name must not be empty.";
 
         public string InvalidMinLength { get; set; } = $"Name must not be less than {ValueObjects.Name.MinLength} characters.";

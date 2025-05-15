@@ -21,11 +21,15 @@ public class StudentMap : IEntityTypeConfiguration<Student>
         
         builder.OwnsOne(x => x.Name, name =>
         {
-            name.HasIndex(x => x.FirstName + x.LastName)
+            name.HasIndex(x => $"{x.FirstName} {x.LastName}")
                 .HasDatabaseName("IDX_Student_Name")
                 .IsUnique();
-            
-            name.Property(x => x.FirstName).HasColumnName("FirstName").HasMaxLength(Name.MaxLength).IsRequired();
+
+            name.Property(x => $"{x.FirstName} {x.LastName}")
+                .IsRequired()
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(Name.MaxLength)
+                .HasColumnName("Name");
         });
 
         builder.OwnsOne(x => x.Email, email =>
@@ -33,6 +37,18 @@ public class StudentMap : IEntityTypeConfiguration<Student>
             email.HasIndex(x => x.Address)
                 .HasDatabaseName("IDX_Student_Email")
                 .IsUnique();
+
+            email.Property(x => x.Address)
+                .IsRequired()
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(Email.MaxLength)
+                .HasColumnName("Email");
+            
+            email.Property(x => x.Hash)
+                .IsRequired()
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(255)
+                .HasColumnName("EmailHash");            
         });
 
         #endregion
