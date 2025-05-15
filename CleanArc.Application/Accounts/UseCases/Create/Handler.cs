@@ -5,11 +5,13 @@ using CleanArc.Domain.Accounts.ValueObjects;
 using CleanArc.Domain.Accounts.ValueObjects.Exceptions;
 using CleanArc.Application.Shared.UseCases.Abstractions;
 using CleanArc.Application.Accounts.Repositories.Abstractions;
+using CleanArc.Application.Shared.Repositories.Abstractions;
 
 namespace CleanArc.Application.Accounts.UseCases.Create;
 
 public sealed class Handler(
-    IAccountRepository accountRepository) : ICommandHandler<Command, Response>
+    IAccountRepository accountRepository,
+    IUnitOfWork unitOfWork) : ICommandHandler<Command, Response>
 {
     
     public async Task<Result<Response>> Handle(Command request, CancellationToken cancellationToken)
@@ -22,10 +24,11 @@ public sealed class Handler(
         
         var student = Student.Create(name, email, new DateTimeProvider());
         
-        // Persiste os dados
+        await accountRepository.SaveAsync(student);
+        await unitOfWork.CommitAsync();       
         
-        // Retorna a resposta
-        return Result.Success<Response>(new Response(Guid.NewGuid(), request.FirstName + " " + request.LastName, request.Email));
+        var response = new Response(student.Id, student.Name, student.Email);
+        return Result.Success(response);
     }
     
 }

@@ -6,4 +6,6 @@ namespace CleanArc.Application.Accounts.Repositories.Abstractions;
 public interface IAccountRepository : IRepository<Student>
 {
     Task<bool> VerifyEmailExistsAsync(string email);
+    
+    Task SaveAsync(Student student);
 }

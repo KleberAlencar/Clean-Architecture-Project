@@ -26,9 +26,9 @@ public abstract class Entity(Guid id) : IEquatable<Guid>
 
     #region [ Domain Events]
 
-    public IReadOnlyCollection<IDomainEvent> Events => _events;
+    public IReadOnlyCollection<IDomainEvent> GetDomainEvents => _events;
     
-    public void ClearEvents() => _events.Clear();
+    public void ClearDomainEvents() => _events.Clear();
     
     public void RaiseEvent(IDomainEvent @event) => _events.Add(@event);
 

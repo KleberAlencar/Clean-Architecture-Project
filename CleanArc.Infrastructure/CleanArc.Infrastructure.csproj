@@ -8,7 +8,16 @@
 
     <ItemGroup>
       <Folder Include="Accounts\" />
-      <Folder Include="Shared\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CleanArc.Application\CleanArc.Application.csproj" />
+      <ProjectReference Include="..\CleanArc.Domain\CleanArc.Domain.csproj" />
     </ItemGroup>
 
 </Project>

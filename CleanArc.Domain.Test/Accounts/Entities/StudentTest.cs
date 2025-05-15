@@ -13,7 +13,7 @@ public class StudentTest
     public void Should_Raise_OnStudentCreatedEvent_Primitive_Constructor()
     {
         var student = Student.Create("Kleber", "Santos", "kleber@outlook.com", _dateTimeProvider);
-        Assert.Single(student.Events);
+        Assert.Single(student.GetDomainEvents);
     } 
     
     [Fact]
@@ -22,6 +22,6 @@ public class StudentTest
         var name = Name.Create("Kleber", "Santos");
         var email = Email.Create("kleber@outlook.com");
         var student = Student.Create(name, email, _dateTimeProvider);
-        Assert.Single(student.Events);
+        Assert.Single(student.GetDomainEvents);
     }     
 }
