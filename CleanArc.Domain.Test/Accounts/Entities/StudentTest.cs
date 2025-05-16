@@ -1,7 +1,7 @@
 ﻿using CleanArc.Domain.Test.Mocks;
 using CleanArc.Domain.Accounts.Entities;
-using CleanArc.Domain.Accounts.ValueObjects;
 using CleanArc.Domain.Shared.Abstractions;
+using CleanArc.Domain.Accounts.ValueObjects;
 
 namespace CleanArc.Domain.Test.Accounts.Entities;
 
