@@ -3,12 +3,15 @@ using CleanArc.Application;
 using CleanArc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using CleanArc.Infrastructure.Shared.Data;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = "Server=localhost,1433;Database=Clean_Architecture_DB;User Id=sa;Password=170421sqSE@;Trusted_Connection=False; TrustServerCertificate=True;";
-builder.Services.AddDbContext<AppDbContext>(x => 
-    x.UseSqlServer(connectionString, m => m.MigrationsAssembly("CleanArc.Api")));
+var connectionString = "Server=localhost,1433;Database=DB_Clean_Architecture;User Id=sa;Password=;Trusted_Connection=False; TrustServerCertificate=True;";
+
+builder.Services.AddDbContext<AppDbContext>(x =>
+    x.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+    .UseSqlServer(connectionString, m => m.MigrationsAssembly("CleanArc.Api")));
 builder.Services.AddAccountApplication();
 builder.Services.AddInfrastructure();
 

@@ -21,15 +21,21 @@ public class StudentMap : IEntityTypeConfiguration<Student>
         
         builder.OwnsOne(x => x.Name, name =>
         {
-            name.HasIndex(x => $"{x.FirstName} {x.LastName}")
+            name.HasIndex(x => new {x.FirstName, x.LastName})
                 .HasDatabaseName("IDX_Student_Name")
                 .IsUnique();
 
-            name.Property(x => $"{x.FirstName} {x.LastName}")
+            name.Property(x => x.FirstName)
                 .IsRequired()
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(Name.MaxLength)
-                .HasColumnName("Name");
+                .HasColumnName("FirstName");
+            
+            name.Property(x => x.LastName)
+                .IsRequired()
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(Name.MaxLength)
+                .HasColumnName("LastName");            
         });
 
         builder.OwnsOne(x => x.Email, email =>
@@ -49,6 +55,19 @@ public class StudentMap : IEntityTypeConfiguration<Student>
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255)
                 .HasColumnName("EmailHash");            
+        });
+
+        builder.OwnsOne(x => x.Tracker, tracker =>
+        {
+            tracker.Property(x => x.CreatedAtUtc)
+                .HasColumnType("DATETIME")
+                .HasDefaultValue(DateTime.UtcNow)
+                .HasColumnName("CreatedAtUtc");
+            
+            tracker.Property(x => x.UpdatedAtUtc)
+                .HasColumnType("DATETIME")
+                .HasDefaultValue(DateTime.UtcNow)
+                .HasColumnName("UpdatedAtUtc");            
         });
 
         #endregion

@@ -56,7 +56,7 @@ public sealed record Name : ValueObject
     public string FirstName { get; }
 
     public string LastName { get; }
-
+    
     #endregion
 
     #region [ Operators ]

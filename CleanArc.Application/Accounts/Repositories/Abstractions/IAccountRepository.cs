@@ -10,4 +10,6 @@ public interface IAccountRepository : IRepository<Student>
     Task<bool> VerifyEmailExistsAsync(string email);
     
     Task SaveAsync(Student student);
+    
+    Task<Student?> GetByIdAsync(Guid id);
 }

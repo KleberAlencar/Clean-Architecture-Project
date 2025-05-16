@@ -10,6 +10,10 @@ public sealed class Student : Entity, IAggregateRoot
 {
     #region [ Constructors ]
 
+    private Student() : base(Guid.CreateVersion7())
+    {
+    }
+    
     private Student(
         Name name, 
         Email email, 
@@ -53,11 +57,11 @@ public sealed class Student : Entity, IAggregateRoot
     
     #region [ Properties ]
 
-    public Name Name { get; }
-    
-    public Email Email { get; }
+    public Name Name { get; } = null!;
 
-    public Tracker Tracker { get; set; }
+    public Email Email { get; } = null!;
+
+    public Tracker Tracker { get; set; } = null!;
 
     #endregion
     
