@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//TODO: Change connection string to other local.
 var connectionString = "Server=localhost,1433;Database=DB_Clean_Architecture;User Id=sa;Password=;Trusted_Connection=False; TrustServerCertificate=True;";
 
 builder.Services.AddDbContext<AppDbContext>(x =>
